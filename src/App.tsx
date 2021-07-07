@@ -1,26 +1,13 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect } from 'react';
+
 import './App.css';
+import connectWithWebSocket from './utils/wssConnection/wssConnection';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  useEffect(() => {
+    connectWithWebSocket();
+  }, []);
+  return <div className="App">hi its home</div>;
 }
 
 export default App;
