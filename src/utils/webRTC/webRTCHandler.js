@@ -1,5 +1,9 @@
 import store from '../../store/store';
-import { setLocalStream } from '../../store/actions/callActions';
+import {
+  setLocalStream,
+  setCallState,
+  callStates,
+} from '../../store/actions/callActions';
 //  기본 세팅 - 이외의 많은 옵션을 줄수있음 검색 ㄱ
 const defaultConstrains = {
   video: true,
@@ -13,6 +17,8 @@ export const getLocalStream = () => {
     .then(stream => {
       console.log('webrtchandler stream :', stream);
       store.dispatch(setLocalStream(stream));
+      //   현재 mode도
+      store.dispatch(setCallState(callStates.CALL_AVAILABLE));
     })
     .catch(err => {
       console.log(
