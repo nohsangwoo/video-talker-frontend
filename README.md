@@ -7,3 +7,5 @@
 # install redux
 
 # apply redux-devtoos-extension
+
+# build login page and css
