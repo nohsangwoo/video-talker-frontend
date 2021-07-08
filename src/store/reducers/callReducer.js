@@ -5,6 +5,7 @@ const initState = {
 };
 
 const reducer = (state = initState, action) => {
+  console.log('call reducer action: ', action.localStream);
   switch (action.type) {
     case callActions.CALL_SET_LOCAL_STREAM:
       return {

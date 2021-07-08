@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from '../assets/logo.png';
 import ActiveUsersList from './components/ActiveUsersList/ActiveUsersList';
+import * as webRTCHandler from '../utils/webRTC/webRTCHandler';
 import './Dashboard.css';
+
 const Dashboard = () => {
+  // dashboard에 처음 접속하면 내 stream정보를 일단 수집해온다
+  useEffect(() => {
+    webRTCHandler.getLocalStream();
+  }, []);
   return (
     <div className="dashboard_container background_main_color">
       <div className="dashboard_left_section">
