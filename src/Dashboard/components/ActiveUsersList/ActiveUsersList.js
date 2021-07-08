@@ -11,7 +11,7 @@ const ActiveUsersList = () => {
   return (
     <div className="active_user_list_container">
       {activeUsers.map((activeUser, index) => {
-        console.log(activeUser);
+        console.log('activeUser map:', activeUser);
         return (
           <ActiveUsersListItem
             key={activeUser.socketId}
