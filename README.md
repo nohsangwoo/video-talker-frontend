@@ -15,3 +15,5 @@
 # show user list
 
 # emit test
+
+# show connected user list(except me()

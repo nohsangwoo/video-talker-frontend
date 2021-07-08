@@ -13,6 +13,8 @@ const LoginPage = () => {
   const dispatch = useDispatch();
 
   const handleSubmitButtonPressed = () => {
+    //   submit버튼을 누르면 실행되는 내용
+    // registerNewUser를 socket.io-client가 제어하도록 함
     registerNewUser(username);
     dispatch(setUsernameRedux(username));
     history.push('/dashboard');
