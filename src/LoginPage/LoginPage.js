@@ -6,13 +6,14 @@ import UsernameInput from './components/UsernameInput';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUsernameRedux } from '../store/actions/dashboardAction';
-
+import { registerNewUser } from '../utils/wssConnection/wssConnection';
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const history = useHistory();
   const dispatch = useDispatch();
 
   const handleSubmitButtonPressed = () => {
+    registerNewUser(username);
     dispatch(setUsernameRedux(username));
     history.push('/dashboard');
   };

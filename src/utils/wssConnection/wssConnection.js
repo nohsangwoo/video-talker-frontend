@@ -5,7 +5,7 @@ const SERVER = 'http://localhost:5000';
 
 let socket;
 
-const wssConnection = () => {
+export const connectWithWebSocket = () => {
   socket = socektClient(SERVER);
 
   socket.on('connection', () => {
@@ -14,4 +14,10 @@ const wssConnection = () => {
   });
 };
 
-export default wssConnection;
+export const registerNewUser = username => {
+  console.log('register-new-user front end func', username);
+  socket.emit('register-new-user', {
+    username,
+    socketId: socket.id,
+  });
+};
