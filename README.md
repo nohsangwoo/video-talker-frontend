@@ -19,3 +19,7 @@
 # show connected user list(except me()
 
 # userdisconnected
+
+# get userStream using by getUserMedia and save redux store
+
+# show user stream in dashboard
