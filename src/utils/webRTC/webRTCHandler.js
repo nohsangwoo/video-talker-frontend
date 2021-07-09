@@ -8,7 +8,7 @@ import {
 } from '../../store/actions/callActions';
 import * as wss from '../wssConnection/wssConnection';
 
-const preOfferAnser = {
+const preOfferAnswers = {
   CALL_ACCEPTED: 'CALL_ACCEPTED',
   CALL_REJECTED: 'CALL_REJECTED',
   CALL_NOT_AVAILABLE: 'CALL_NOT_AVAILABE',
@@ -74,7 +74,7 @@ export const handlePreOffer = data => {
     //   전화 받는 사람이 어떤 결정을 했는지 caller에게 알려주는기능
     wss.sendPreOfferAnswer({
       callerSocektId: data.callerSocketId,
-      answer: preOfferAnser.CALL_NOT_AVAILABLE,
+      answer: preOfferAnswers.CALL_NOT_AVAILABLE,
     });
   }
 };
@@ -85,19 +85,36 @@ export const acceptIncomingCallRequest = () => {
     // 전화를 받기로 수락했다면 해당 내용을 정리해서 백엔드로 전달
     // (이때 백엔드는 받은정보를 다시 caller에게 전달해준다)
     callerSocektId: connectedUserSocketId,
-    answer: preOfferAnser.CALL_ACCEPTED,
+    answer: preOfferAnswers.CALL_ACCEPTED,
   });
 };
 
 // 2단계? 전화왔을때 거절하는 기능
 export const rejectIncomingCallRequest = () => {
-  resetCallData();
   wss.sendPreOfferAnswer({
     // 전화를 거절하기로 수락했다면 해당 내용을 정리해서 백엔드로 전달
     // (이때 백엔드는 받은정보를 다시 caller에게 전달해준다)
     callerSocektId: connectedUserSocketId,
-    answer: preOfferAnser.CALL_REJECTED,
+    answer: preOfferAnswers.CALL_REJECTED,
   });
+
+  // 저장된caller의 정보와 callState를 초기화
+  resetCallData();
+};
+
+// callee가 전화를 받는다고 수락했다면 caller의 webRTC offer를 본격적으로 보낸다
+export const handlePreOfferAnswer = data => {
+  if (data.answer === preOfferAnswers.CALL_ACCEPTED) {
+    // send webRTC offer
+  } else {
+    let rejectionReason;
+    // callee가 거절한게아니라 다른이유에서(네트워크상태던 뭐던) 거절된 상태일때 거절이유를 변수에 저장
+    if (data.answer === preOfferAnswers.CALL_NOT_AVAILABLE) {
+      rejectionReason = 'Callee is not able to pick up the call right now';
+    } else {
+      rejectionReason = 'Call rejected by the callee';
+    }
+  }
 };
 
 // 전화가 불가능한지 판단

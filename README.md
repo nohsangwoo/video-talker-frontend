@@ -36,3 +36,7 @@
 - 1단계 : CALL_IN_PROGRESS 단계
 
 # calle가 전화 수락했을때 거절했을때 분기점 초기 상황 구현 및 백엔드로 데이터 전달
+
+# handle pre-offer answer
+
+- callee가 전화를 거절했는지 수락했는지에대한 정보를 caller에게 전달하는 과정 구현

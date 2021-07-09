@@ -31,6 +31,12 @@ export const connectWithWebSocket = () => {
   socket.on('pre-offer', data => {
     webRTCHandler.handlePreOffer(data);
   });
+
+  // 2단계에서 callee가 전화를 거절했는지 수락했는지에대한 정보를 caller에게 전달하는 기능
+  //   백엔드=>프론트  (2단계 마지막)
+  socket.on('pre-offer-answer', data => {
+    webRTCHandler.handlePreOfferAnswer(data);
+  });
 };
 
 export const registerNewUser = username => {
@@ -47,7 +53,8 @@ export const sendPreOffer = data => {
   socket.emit('pre-offer', data);
 };
 
-// 전화받는사람(callee)이 어떤 결정을 했는지 caller에게 알려주는 기능
+// 2단계에서 전화받는사람(callee)이 어떤 결정을 했는지 caller에게 알려주는 기능
+// 프론트(callee) => 백엔드
 export const sendPreOfferAnswer = data => {
   socket.emit('pre-offer-answer', data);
 };
