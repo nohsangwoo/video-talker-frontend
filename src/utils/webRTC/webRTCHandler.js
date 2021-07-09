@@ -6,8 +6,14 @@ import {
   setCallingDialogVisible,
   setCallerUsername,
 } from '../../store/actions/callActions';
-
 import * as wss from '../wssConnection/wssConnection';
+
+const preOfferAnser = {
+  CALL_ACCEPTED: 'CALL_ACCEPTED',
+  CALL_REJECTED: 'CALL_REJECTED',
+  CALL_NOT_AVAILABLE: 'CALL_NOT_AVAILABE',
+};
+
 //  기본 세팅 - 이외의 많은 옵션을 줄수있음 검색 ㄱ
 const defaultConstrains = {
   video: true,
@@ -57,7 +63,60 @@ export const callToOtherUser = calleeDetails => {
 // 이 첫번째 단계가 끝나고 다음단계로 진행한다는 트리거를 건드리기 위해 리덕스의 callState를 CALL_REQUESTED로 변경한다
 // 이제 callee가 전화를 수락하냐 거절하냐에 따라 다음단계에서 진행되는 내용이 결정됨
 export const handlePreOffer = data => {
-  connectedUserSocketId = data.callerSocketId;
-  store.dispatch(setCallerUsername(data.callerUsername));
-  store.dispatch(setCallState(callStates.CALL_REQUESTED));
+  // 전화가 가능한 상태인지 아닌지 판단하는 함수
+  // 전화가 가능하면 true반환 아니면 false반환
+  if (checkIfCallPossible()) {
+    connectedUserSocketId = data.callerSocketId;
+    store.dispatch(setCallerUsername(data.callerUsername));
+    store.dispatch(setCallState(callStates.CALL_REQUESTED));
+    // 전화가 불가능한 상태일때 작동하는 기능
+  } else {
+    //   전화 받는 사람이 어떤 결정을 했는지 caller에게 알려주는기능
+    wss.sendPreOfferAnswer({
+      callerSocektId: data.callerSocketId,
+      answer: preOfferAnser.CALL_NOT_AVAILABLE,
+    });
+  }
+};
+
+// 2단계? 전화왔을때 수락하는 기능
+export const acceptIncomingCallRequest = () => {
+  wss.sendPreOfferAnswer({
+    // 전화를 받기로 수락했다면 해당 내용을 정리해서 백엔드로 전달
+    // (이때 백엔드는 받은정보를 다시 caller에게 전달해준다)
+    callerSocektId: connectedUserSocketId,
+    answer: preOfferAnser.CALL_ACCEPTED,
+  });
+};
+
+// 2단계? 전화왔을때 거절하는 기능
+export const rejectIncomingCallRequest = () => {
+  resetCallData();
+  wss.sendPreOfferAnswer({
+    // 전화를 거절하기로 수락했다면 해당 내용을 정리해서 백엔드로 전달
+    // (이때 백엔드는 받은정보를 다시 caller에게 전달해준다)
+    callerSocektId: connectedUserSocketId,
+    answer: preOfferAnser.CALL_REJECTED,
+  });
+};
+
+// 전화가 불가능한지 판단
+export const checkIfCallPossible = () => {
+  if (
+    // 리덕스 스토어 call 안의  localStream의 내용이 null이거나
+    // 리덕스 스토어에 저장된 callState가 CALL_AVAILABLE(사용 가능한)상태가 아니라면 false 값을 return
+    store.getState().call.localStream === null ||
+    store.getState().call.callState !== callStates.CALL_AVAILABLE
+  ) {
+    return false;
+    // 위 조건의 여집합은 전부 true
+  } else {
+    return true;
+  }
+};
+
+// call 관련 데이터 초기화
+export const resetCallData = () => {
+  connectedUserSocketId = null;
+  store.dispatch(setCallState(callStates.CALL_AVAILABLE));
 };

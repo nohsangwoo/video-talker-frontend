@@ -47,6 +47,11 @@ export const sendPreOffer = data => {
   socket.emit('pre-offer', data);
 };
 
+// 전화받는사람(callee)이 어떤 결정을 했는지 caller에게 알려주는 기능
+export const sendPreOfferAnswer = data => {
+  socket.emit('pre-offer-answer', data);
+};
+
 // 전체방송으로 받은 데이터 이벤트 처리
 const handleBroadcastEvents = data => {
   switch (data.event) {
