@@ -2,7 +2,7 @@ import React from 'react';
 import socektClient from 'socket.io-client';
 import store from '../../store/store';
 import * as dashboardActions from '../../store/actions/dashboardAction';
-
+import * as webRTCHandler from '../webRTC/webRTCHandler';
 const SERVER = 'http://localhost:5000';
 
 const broadcastEventTypes = {
@@ -25,6 +25,12 @@ export const connectWithWebSocket = () => {
     console.log('broadcast data: ', data);
     handleBroadcastEvents(data);
   });
+
+  // listeners related with direct call
+  //  전화를 거는 첫번째 단계에서 전화를 받는 대상인 callee가 백엔드에서 귓속말을 받았을때 처리하는 함수
+  socket.on('pre-offer', data => {
+    webRTCHandler.handlePreOffer(data);
+  });
 };
 
 export const registerNewUser = username => {
@@ -33,6 +39,12 @@ export const registerNewUser = username => {
     username,
     socketId: socket.id,
   });
+};
+
+// emititing events to server related with direct call
+// 전화를 거는 첫번째 단계에서 백엔드에 caller와 calle의 정보를 모두 포함하여 전달한다.
+export const sendPreOffer = data => {
+  socket.emit('pre-offer', data);
 };
 
 // 전체방송으로 받은 데이터 이벤트 처리

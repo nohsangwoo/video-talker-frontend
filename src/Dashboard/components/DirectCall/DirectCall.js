@@ -6,11 +6,21 @@ import { useSelector } from 'react-redux';
 import CallRejectedDialog from '../CallRejectedDialog/CallRejectedDialog';
 import IncomingCallDialog from '../IncomingCallDialog/IncomingCallDialog';
 import CallingDialog from '../CallingDialog/CallingDialog';
-
+import { callStates } from '../../../store/actions/callActions';
 const DirectCall = props => {
   const { localStream, remoteStream } = props;
-  const data = useSelector(state => state.call);
-  console.log('redux call in Direct call', data);
+  const { callState, callerUsername, callingDialogVisible } = useSelector(
+    state => state.call
+  );
+  console.log(
+    'redux call in Direct call: ',
+    'callState',
+    callState,
+    'callerUsername: ',
+    callerUsername,
+    'callingDialogVisible: ',
+    callingDialogVisible
+  );
 
   return (
     <>
@@ -19,8 +29,10 @@ const DirectCall = props => {
 
       {/* 조건에 따라서 안내문 띄우기 */}
       {/* <CallRejectedDialog /> */}
-      {/* <IncomingCallDialog /> */}
-      {/* <CallingDialog /> */}
+      {callState === callStates.CALL_REQUESTED && (
+        <IncomingCallDialog callerUsername={callerUsername} />
+      )}
+      {callingDialogVisible && <CallingDialog />}
     </>
   );
 };
