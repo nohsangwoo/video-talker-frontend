@@ -1,24 +1,18 @@
 import React from 'react';
-import './ActiveUsersList.css';
 import ActiveUsersListItem from './ActiveUsersListItem';
+import './ActiveUsersList.css';
 import { useSelector } from 'react-redux';
 
 const ActiveUsersList = () => {
-  const {
-    dashboard: { activeUsers },
-  } = useSelector(state => state);
-  console.log(activeUsers);
+  const { activeUsers } = useSelector(state => state.dashboard);
   return (
     <div className="active_user_list_container">
-      {activeUsers.map((activeUser, index) => {
-        console.log('activeUser map:', activeUser);
-        return (
-          <ActiveUsersListItem
-            key={activeUser.socketId}
-            activeUser={activeUser}
-          />
-        );
-      })}
+      {activeUsers.map(activeUser => (
+        <ActiveUsersListItem
+          key={activeUser.socketId}
+          activeUser={activeUser}
+        />
+      ))}
     </div>
   );
 };

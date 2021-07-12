@@ -12,7 +12,6 @@
 }
 
 .active_user_list_item:hover {
-  cursor: pointer;
   background-color: #8a85ff;
 }
 

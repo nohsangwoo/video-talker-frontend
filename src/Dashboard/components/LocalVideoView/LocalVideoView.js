@@ -7,19 +7,18 @@ const styles = {
     borderRadius: '8px',
     position: 'absolute',
     top: '5%',
-    right: '23%',
+    right: '23%'
   },
   videoElement: {
     width: '100%',
-    height: '100%',
-  },
+    height: '100%'
+  }
 };
 
 const LocalVideoView = props => {
   const { localStream } = props;
   const localVideoRef = useRef();
 
-  // 전달받은 localStream이 존재한다면 비디오 태그부분의 옵션을 play로 변경한다
   useEffect(() => {
     if (localStream) {
       const localVideo = localVideoRef.current;
@@ -32,7 +31,7 @@ const LocalVideoView = props => {
   }, [localStream]);
 
   return (
-    <div style={styles.videoContainer} className="background_secondary_color">
+    <div style={styles.videoContainer} className='background_secondary_color'>
       <video style={styles.videoElement} ref={localVideoRef} autoPlay muted />
     </div>
   );

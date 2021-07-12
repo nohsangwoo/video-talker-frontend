@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
-import logo from '../assets/logo.png';
+import logo from '../resources/logo.png';
 import ActiveUsersList from './components/ActiveUsersList/ActiveUsersList';
 import * as webRTCHandler from '../utils/webRTC/webRTCHandler';
 import DirectCall from './components/DirectCall/DirectCall';
+
 import './Dashboard.css';
 
 const Dashboard = () => {
-  // dashboard에 처음 접속하면 내 stream정보를 일단 수집해온다
   useEffect(() => {
     webRTCHandler.getLocalStream();
   }, []);
+
   return (
     <div className="dashboard_container background_main_color">
       <div className="dashboard_left_section">
@@ -25,11 +26,7 @@ const Dashboard = () => {
           <ActiveUsersList />
         </div>
         <div className="dashboard_logo_container">
-          <img
-            className="dashboard_logo_image"
-            src={logo}
-            alt="dashboard_logo"
-          />
+          <img className="dashboard_logo_image" src={logo} alt="logoImage" />
         </div>
       </div>
     </div>

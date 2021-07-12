@@ -1,38 +1,38 @@
 import React, { useState } from 'react';
-import './LoginPage.css';
-import logo from '../assets/logo.png';
-import SubmitButton from './components/SubmitButton';
+import logo from '../resources/logo.png';
 import UsernameInput from './components/UsernameInput';
+import SubmitButton from './components/SubmitButton';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setUsernameRedux } from '../store/actions/dashboardAction';
+import { setUsername } from '../store/actions/dashboardActions';
 import { registerNewUser } from '../utils/wssConnection/wssConnection';
+import './LoginPage.css';
+
+import { useDispatch } from 'react-redux';
+
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
+  const [username, setOriginUsername] = useState('');
   const history = useHistory();
   const dispatch = useDispatch();
 
   const handleSubmitButtonPressed = () => {
-    //   submit버튼을 누르면 실행되는 내용
-    // registerNewUser를 socket.io-client가 제어하도록 함
     registerNewUser(username);
-    dispatch(setUsernameRedux(username));
+    saveUsername(username);
     history.push('/dashboard');
+  };
+
+  const saveUsername = username => {
+    dispatch(setUsername(username));
   };
   return (
     <div className="login-page_container background_main_color">
       <div className="login-page_login_box background_secondary_color">
         <div className="login-page_logo_container">
-          <img
-            className="login-page_logo_image"
-            src={logo}
-            alt="video-talker"
-          />
+          <img className="login-page_logo_image" src={logo} alt="VideoTalker" />
         </div>
         <div className="login-page_title_container">
           <h2>Get on Board</h2>
         </div>
-        <UsernameInput username={username} setUsername={setUsername} />
+        <UsernameInput username={username} setUsername={setOriginUsername} />
         <SubmitButton handleSubmitButtonPressed={handleSubmitButtonPressed} />
       </div>
     </div>
