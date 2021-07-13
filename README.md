@@ -70,3 +70,17 @@
 ## handle webRTC answer
 
 callee가 연결 수락했을때 정보를 caller에게 보냄
+
+## Exchanging ICE candidates
+
+- 이제 ICE candidates 내용 교환한다.
+
+  ICE candidates
+
+  To establish direct connection between two peers exchanging information about the media(SDP) is not enough.
+
+  Peers must exchange information about the network connection. This is known as an ICE candidate and details the available methods the peer is able to communicate (directly or through a TURN server). Typically, each peer will propose its best candidates first, making their way down the line toward their worse candidates. Ideally, candidates are UDP (since it's faster, and media streams are able to recover from interruptions relatively easily), but the ICE standard does allow TCP candidates as well.
+
+  For more informations please check link below:
+
+  https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Connectivity
