@@ -88,3 +88,9 @@ callee가 연결 수락했을때 정보를 caller에게 보냄
 ## displaying remote stream
 
 원격으로 stream정보를 받아서 연결하기(caller-callee)
+
+## creating conversation buttons
+
+- npm install react-icons --save
+
+react-icon로 버튼 몇개 가져와서 적용시킨다

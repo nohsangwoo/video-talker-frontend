@@ -9,7 +9,7 @@ import {
   setCallRejected,
 } from '../../../store/actions/callActions';
 import { useSelector, useDispatch } from 'react-redux';
-
+import ConversationButtons from '../ConversationButtons/ConversationButtons';
 const DirectCall = props => {
   const dispatch = useDispatch();
   const {
@@ -39,6 +39,7 @@ const DirectCall = props => {
         <IncomingCallDialog callerUsername={callerUsername} />
       )}
       {callingDialogVisible && <CallingDialog />}
+      <ConversationButtons />
     </>
   );
 };
