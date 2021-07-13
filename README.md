@@ -62,3 +62,11 @@
 - 여기서 중요한 것은 Caller의 localDescription이 설정되어야 candidate를 수집할 수 있다.
 
 - 설정이 완료되면 callee는 createAnswer()를 통해 Caller에게 보낼 SDP를 생성한다.
+
+  WebRTC answer
+
+  The createAnswer() method creates an SDP answer to an offer received from a remote peer during the offer/answer negotiation of a WebRTC connection.
+
+## handle webRTC answer
+
+callee가 연결 수락했을때 정보를 caller에게 보냄
