@@ -7,8 +7,9 @@ const initState = {
   callerUsername: '',
   callRejected: {
     rejected: false,
-    reason: ''
-  }
+    reason: '',
+  },
+  remoteStream: null,
 };
 
 const reducer = (state = initState, action) => {
@@ -16,32 +17,35 @@ const reducer = (state = initState, action) => {
     case callActions.CALL_SET_LOCAL_STREAM:
       return {
         ...state,
-        localStream: action.localStream
+        localStream: action.localStream,
       };
     case callActions.CALL_SET_CALL_STATE:
       return {
         ...state,
-        callState: action.callState
+        callState: action.callState,
       };
     case callActions.CALL_SET_CALLING_DIALOG_VISIBLE:
       return {
         ...state,
-        callingDialogVisible: action.visible
+        callingDialogVisible: action.visible,
       };
     case callActions.CALL_SET_CALLER_USERNAME:
       return {
         ...state,
-        callerUsername: action.callerUsername
+        callerUsername: action.callerUsername,
       };
     case callActions.CALL_SET_CALL_REJECTED:
       return {
         ...state,
-        callRejected: action.callRejected
+        callRejected: action.callRejected,
+      };
+    case callActions.CALL_SET_REMOTE_STREAM:
+      return {
+        ...state,
+        remoteStream: action.remoteStream,
       };
     default:
       return state;
   }
-}
-;
-
+};
 export default reducer;
