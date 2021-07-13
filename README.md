@@ -53,4 +53,12 @@
 
 ## creataing webRTC offer
 
-SDP정보를 제공하기위해 만들어둔다.
+수신자에게 SDP정보를 제공하기위해 만들어둔다.
+
+## handling webRTC offer and creating webRTC answer
+
+- sdp가 완료되면 생성이 완료되면 Caller의 setLocalDescription() 을 통해 로컬 SDP로 설정해주어야 한다.
+- 설정이 완료되면 WebSocket 혹은 Socket.io (무엇이든 상관없다 본인에게 편한 것을 사용하자) 등을 통해 SDP와 candidate(아래 나올)를 Callee에게 전달하는데 이를 시그널링(Signaling)이라고 한다.
+- 여기서 중요한 것은 Caller의 localDescription이 설정되어야 candidate를 수집할 수 있다.
+
+- 설정이 완료되면 callee는 createAnswer()를 통해 Caller에게 보낼 SDP를 생성한다.
