@@ -94,3 +94,18 @@ callee가 연결 수락했을때 정보를 caller에게 보냄
 - npm install react-icons --save
 
 react-icon로 버튼 몇개 가져와서 적용시킨다
+
+## Enabling/Disabling camera or microphone in active peer connection
+
+- 카메라와 마이크 제어(control pannel)
+- 내 오디오 정보 제어
+
+```
+localStream.getAudioTracks()[0].enabled = !micEnabled;
+```
+
+- 내 비디오 정보 제어
+
+```
+localStream.getVideoTracks()[0].enabled = !cameraEnabled;
+```

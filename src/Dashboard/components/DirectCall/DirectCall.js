@@ -12,17 +12,27 @@ import { useSelector, useDispatch } from 'react-redux';
 import ConversationButtons from '../ConversationButtons/ConversationButtons';
 const DirectCall = props => {
   const dispatch = useDispatch();
+
   const {
     localStream,
     remoteStream,
     callState,
     callerUsername,
-    callingDialogVisible,
     callRejected,
+    callingDialogVisible,
   } = useSelector(state => state.call);
 
   const hideCallRejectedDialog = callRejectedDetails => {
     dispatch(setCallRejected(callRejectedDetails));
+  };
+
+  const conversationProps = {
+    localStream,
+    remoteStream,
+    callState,
+    callerUsername,
+    callRejected,
+    callingDialogVisible,
   };
 
   return (

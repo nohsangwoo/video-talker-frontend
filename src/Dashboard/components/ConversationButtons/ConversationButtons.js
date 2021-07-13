@@ -4,11 +4,17 @@ import {
   MdMic,
   MdMicOff,
   MdVideocam,
+  MdVideocamOff,
   MdVideoLabel,
   MdVideoCall,
   MdCamera,
 } from 'react-icons/md';
 import ConversationButton from './ConversationButton';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  setLocalCameraEnabled,
+  setLocalMicrophoneEnabled,
+} from '../../../store/actions/callActions';
 
 const styles = {
   buttonContainer: {
@@ -24,17 +30,55 @@ const styles = {
   },
 };
 
-const ConversationButtons = () => {
+// localCameraEnabled: true,
+// localMicrophoneEnabled: true
+const ConversationButtons = props => {
+  const dispatch = useDispatch();
+
+  const { localStream, localCameraEnabled, localMicrophoneEnabled } =
+    useSelector(state => state.call);
+
+  const setCameraEnabled = enabled => {
+    dispatch(setLocalCameraEnabled(enabled));
+  };
+
+  const setMicrophoneEnabled = enabled => {
+    dispatch(setLocalMicrophoneEnabled(enabled));
+  };
+
+  const handleMicButtonPressed = () => {
+    const micEnabled = localMicrophoneEnabled;
+    console.log(localStream.getAudioTracks()[0].enabled);
+    // 내 오디오 정보 토글
+    localStream.getAudioTracks()[0].enabled = !micEnabled;
+    setMicrophoneEnabled(!micEnabled);
+  };
+
+  const handleCameraButtonPressed = () => {
+    const cameraEnabled = localCameraEnabled;
+    // 내 비디오 정보 토글
+    localStream.getVideoTracks()[0].enabled = !cameraEnabled;
+    setCameraEnabled(!cameraEnabled);
+  };
+
   return (
     <div style={styles.buttonContainer}>
-      <ConversationButton>
-        <MdMic style={styles.icon} />
+      <ConversationButton onClickHandler={handleMicButtonPressed}>
+        {localMicrophoneEnabled ? (
+          <MdMic style={styles.icon} />
+        ) : (
+          <MdMicOff style={styles.icon} />
+        )}
       </ConversationButton>
       <ConversationButton>
         <MdCallEnd style={styles.icon} />
       </ConversationButton>
-      <ConversationButton>
-        <MdVideocam style={styles.icon} />
+      <ConversationButton onClickHandler={handleCameraButtonPressed}>
+        {localCameraEnabled ? (
+          <MdVideocam style={styles.icon} />
+        ) : (
+          <MdVideocamOff style={styles.icon} />
+        )}
       </ConversationButton>
       <ConversationButton>
         <MdVideoLabel style={styles.icon} />

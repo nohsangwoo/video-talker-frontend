@@ -17,13 +17,14 @@ const styles = {
     borderStyle: 'none',
     borderWidth: '0px',
     outline: 'none',
+    cursor: 'pointer',
   },
 };
 
 const ConversationButton = props => {
-  const { onClickhandler } = props;
+  const { onClickHandler } = props;
   return (
-    <button style={styles.button} on={onClickhandler}>
+    <button style={styles.button} onClick={onClickHandler}>
       {props.children}
     </button>
   );

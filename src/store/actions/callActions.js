@@ -12,6 +12,10 @@ export const CALL_SET_CALLING_DIALOG_VISIBLE =
 export const CALL_SET_CALLER_USERNAME = 'CALL.SET_CALLER_USERNAME';
 export const CALL_SET_CALL_REJECTED = 'CALL.SET_CALL_REJECTED';
 export const CALL_SET_REMOTE_STREAM = 'CALL.SET_REMOTE_STREAM';
+export const CALL_SET_LOCAL_MICROPHONE_ENABLED =
+  'CALL.SET_LOCAL_MICROPHONE_ENABLED';
+export const CALL_SET_LOCAL_CAMERA_ENABLED = 'CALL.SET_CAMERA_ENABLED';
+
 export const setLocalStream = localStream => {
   return {
     type: CALL_SET_LOCAL_STREAM,
@@ -54,5 +58,19 @@ export const setRemoteStream = remoteStream => {
   return {
     type: CALL_SET_REMOTE_STREAM,
     remoteStream,
+  };
+};
+
+export const setLocalMicrophoneEnabled = enabled => {
+  return {
+    type: CALL_SET_LOCAL_MICROPHONE_ENABLED,
+    enabled,
+  };
+};
+
+export const setLocalCameraEnabled = enabled => {
+  return {
+    type: CALL_SET_LOCAL_CAMERA_ENABLED,
+    enabled,
   };
 };
