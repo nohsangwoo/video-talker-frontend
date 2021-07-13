@@ -109,3 +109,7 @@ localStream.getAudioTracks()[0].enabled = !micEnabled;
 ```
 localStream.getVideoTracks()[0].enabled = !cameraEnabled;
 ```
+
+## Screen sharing - add possibility to replace streams
+
+- 화면 공유 기능

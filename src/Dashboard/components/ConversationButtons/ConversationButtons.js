@@ -15,6 +15,7 @@ import {
   setLocalCameraEnabled,
   setLocalMicrophoneEnabled,
 } from '../../../store/actions/callActions';
+import { switchForScreenSharingStream } from '../../../utils/webRTC/webRTCHandler';
 
 const styles = {
   buttonContainer: {
@@ -35,8 +36,14 @@ const styles = {
 const ConversationButtons = props => {
   const dispatch = useDispatch();
 
-  const { localStream, localCameraEnabled, localMicrophoneEnabled } =
-    useSelector(state => state.call);
+  const {
+    localStream,
+    localCameraEnabled,
+    localMicrophoneEnabled,
+    screenSharingActive,
+  } = useSelector(state => state.call);
+
+  console.log('screenSharingActive: ', screenSharingActive);
 
   const setCameraEnabled = enabled => {
     dispatch(setLocalCameraEnabled(enabled));
@@ -61,6 +68,9 @@ const ConversationButtons = props => {
     setCameraEnabled(!cameraEnabled);
   };
 
+  const handleScreenSharingButtonPressed = () => {
+    switchForScreenSharingStream();
+  };
   return (
     <div style={styles.buttonContainer}>
       <ConversationButton onClickHandler={handleMicButtonPressed}>
@@ -80,8 +90,12 @@ const ConversationButtons = props => {
           <MdVideocamOff style={styles.icon} />
         )}
       </ConversationButton>
-      <ConversationButton>
-        <MdVideoLabel style={styles.icon} />
+      <ConversationButton onClickHandler={handleScreenSharingButtonPressed}>
+        {screenSharingActive ? (
+          <MdCamera style={styles.icon} />
+        ) : (
+          <MdVideoLabel style={styles.icon} />
+        )}
       </ConversationButton>
     </div>
   );
