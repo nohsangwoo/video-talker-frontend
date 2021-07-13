@@ -71,7 +71,7 @@ export const sendWebRTCAnswer = data => {
   socket.emit('webRTC-answer', data);
 };
 
-export const sendwebRTCCandidate = data => {
+export const sendWebRTCCandidate = data => {
   socket.emit('webRTC-candidate', data);
 };
 
