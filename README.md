@@ -130,3 +130,11 @@ localStream.getVideoTracks()[0].enabled = !cameraEnabled;
 ## connecting with peerjs server
 
 - peerjs로 서버와 통신 적용
+
+## create rooms list
+
+모킹용 그룹리스트 만들어놓고 화면에 렌더링
+
+## adding create room button
+
+- 그룹통화 방 으로 가는 버튼 생성 (기능 구현은 아직)
