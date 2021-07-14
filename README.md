@@ -126,3 +126,7 @@ localStream.getVideoTracks()[0].enabled = !cameraEnabled;
 ## dashboard Information
 
 - dashboard접속했을때(로긴시 home화면같은거) 안내문띄우고, 연화연결되면 안내문 없애고 그런 작동들 함..
+
+## connecting with peerjs server
+
+- peerjs로 서버와 통신 적용

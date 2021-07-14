@@ -3,7 +3,7 @@ import './DashboardInformation.css';
 const DashboardInformation = ({ username }) => {
   return (
     <div className="dashboard_info_text_container">
-      <span className="" dashboard_info_text_title>
+      <span className="dashboard_info_text_title">
         hello {username} welcome in videoTalker
       </span>
       <span className="dashboard_info_text_description">
