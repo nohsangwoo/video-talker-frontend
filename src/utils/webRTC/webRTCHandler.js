@@ -190,16 +190,13 @@ export const checkIfCallIsPossible = () => {
   }
 };
 
-export const resetCallData = () => {
-  connectedUserSocketId = null;
-  store.dispatch(setCallState(callStates.CALL_AVAILABLE));
-};
-
 let screenSharingStream;
 
 export const switchForScreenSharingStream = async () => {
+  // 만약 리덕스의 call스토어에 screenSharingActive false라면 진행
   if (!store.getState().call.screenSharingActive) {
     try {
+      // 화면 공유를 위해 필요한 디스플레이정보를 가져오는 이벤트 실행
       screenSharingStream = await navigator.mediaDevices.getDisplayMedia({
         video: true,
       });
@@ -217,6 +214,7 @@ export const switchForScreenSharingStream = async () => {
       );
     }
   } else {
+    // screenSharingActive값이 true인 상태니깐 화면공유기능을 끄는 작업 구현
     const localStream = store.getState().call.localStream;
     const senders = peerConnection.getSenders();
     const sender = senders.find(
@@ -226,4 +224,36 @@ export const switchForScreenSharingStream = async () => {
     store.dispatch(setScreenSharingActive(false));
     screenSharingStream.getTracks().forEach(track => track.stop());
   }
+};
+
+export const handleUserHangedUp = () => {
+  resetCallDataAfterHangUp();
+};
+
+export const hangUp = () => {
+  wss.sendUserhangedUp({
+    connectedUserSocketId: connectedUserSocketId,
+  });
+
+  resetCallDataAfterHangUp();
+};
+
+const resetCallDataAfterHangUp = () => {
+  store.dispatch(setRemoteStream(null));
+
+  peerConnection.close();
+  peerConnection = null;
+  createPeerConnection();
+  resetCallData();
+
+  if (store.getState().call.screenSharingActive) {
+    screenSharingStream.getTracks().forEach(track => {
+      track.stop();
+    });
+  }
+};
+
+export const resetCallData = () => {
+  connectedUserSocketId = null;
+  store.dispatch(setCallState(callStates.CALL_AVAILABLE));
 };

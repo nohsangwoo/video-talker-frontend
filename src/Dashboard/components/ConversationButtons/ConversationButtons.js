@@ -15,7 +15,10 @@ import {
   setLocalCameraEnabled,
   setLocalMicrophoneEnabled,
 } from '../../../store/actions/callActions';
-import { switchForScreenSharingStream } from '../../../utils/webRTC/webRTCHandler';
+import {
+  hangUp,
+  switchForScreenSharingStream,
+} from '../../../utils/webRTC/webRTCHandler';
 
 const styles = {
   buttonContainer: {
@@ -71,6 +74,10 @@ const ConversationButtons = props => {
   const handleScreenSharingButtonPressed = () => {
     switchForScreenSharingStream();
   };
+
+  const handleHangUpButtonPressed = () => {
+    hangUp();
+  };
   return (
     <div style={styles.buttonContainer}>
       <ConversationButton onClickHandler={handleMicButtonPressed}>
@@ -80,7 +87,7 @@ const ConversationButtons = props => {
           <MdMicOff style={styles.icon} />
         )}
       </ConversationButton>
-      <ConversationButton>
+      <ConversationButton onClickHandler={handleHangUpButtonPressed}>
         <MdCallEnd style={styles.icon} />
       </ConversationButton>
       <ConversationButton onClickHandler={handleCameraButtonPressed}>
