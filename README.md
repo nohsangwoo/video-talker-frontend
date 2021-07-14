@@ -115,3 +115,10 @@ localStream.getVideoTracks()[0].enabled = !cameraEnabled;
 - 화면 공유 기능
 
 ## add hang up possibility
+
+- 전화 끊기 기능
+
+## direct calls minor changes
+
+- caller가 전화 걸고 단순변심으로 callee가 전화받기 이전에 취소하는 기능
+- 다른사람이랑 통화중인상대에게는 전화걸지 못하게 막는 기능

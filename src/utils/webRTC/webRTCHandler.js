@@ -8,6 +8,7 @@ import {
   setCallRejected,
   setRemoteStream,
   setScreenSharingActive,
+  resetCallDataState,
 } from '../../store/actions/callActions';
 import * as wss from '../wssConnection/wssConnection';
 
@@ -231,7 +232,7 @@ export const handleUserHangedUp = () => {
 };
 
 export const hangUp = () => {
-  wss.sendUserhangedUp({
+  wss.sendUserHangedUp({
     connectedUserSocketId: connectedUserSocketId,
   });
 
@@ -239,18 +240,22 @@ export const hangUp = () => {
 };
 
 const resetCallDataAfterHangUp = () => {
-  store.dispatch(setRemoteStream(null));
-
   peerConnection.close();
   peerConnection = null;
   createPeerConnection();
   resetCallData();
+
+  const localStream = store.getState().call.localStream;
+  localStream.getVideoTracks()[0].enabled = true;
+  localStream.getAudioTracks()[0].enabled = true;
 
   if (store.getState().call.screenSharingActive) {
     screenSharingStream.getTracks().forEach(track => {
       track.stop();
     });
   }
+
+  store.dispatch(resetCallDataState());
 };
 
 export const resetCallData = () => {

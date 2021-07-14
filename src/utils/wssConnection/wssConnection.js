@@ -79,7 +79,7 @@ export const sendWebRTCCandidate = data => {
   socket.emit('webRTC-candidate', data);
 };
 
-export const sendUserhangedUp = data => {
+export const sendUserHangedUp = data => {
   socket.emit('user-hanged-up', data);
 };
 
