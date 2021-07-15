@@ -1,8 +1,9 @@
 import React from 'react';
+import * as webRTCGroupCallhandler from '../../../utils/webRTC/webRTCGroupCallHandler';
 
 const GroupCallRoomsListItem = ({ room }) => {
   const handleListItemPressed = () => {
-    // join the group call
+    webRTCGroupCallhandler.joinGroupCall(room.socketId, room.roomId);
   };
 
   return (

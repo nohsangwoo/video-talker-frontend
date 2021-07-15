@@ -2,6 +2,7 @@ import socketClient from 'socket.io-client';
 import store from '../../store/store';
 import * as dashboardActions from '../../store/actions/dashboardActions';
 import * as webRTCHandler from '../webRTC/webRTCHandler';
+import * as webRTCGroupCallHandler from '../webRTC/webRTCGroupCallHandler';
 
 const SERVER = 'http://localhost:5000';
 
@@ -48,6 +49,12 @@ export const connectWithWebSocket = () => {
   socket.on('user-hanged-up', () => {
     webRTCHandler.handleUserHangedUp();
   });
+
+  // listeners related with group calls
+
+  socket.on('group-call-join-request', data => {
+    webRTCGroupCallHandler.connectToNewUser(data);
+  });
 };
 
 export const registerNewUser = username => {
@@ -86,6 +93,10 @@ export const sendUserHangedUp = data => {
 // emitting events related with group calss
 export const registerGroupCall = data => {
   socket.emit('group-call-register', data);
+};
+
+export const userWantsToJoinGroupCall = data => {
+  socket.emit('group-call-join-request', data);
 };
 
 const handleBroadcastEvents = data => {

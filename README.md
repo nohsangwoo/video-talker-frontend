@@ -146,3 +146,9 @@ localStream.getVideoTracks()[0].enabled = !cameraEnabled;
 ## adding create room functionality
 
 - 그룹콜 버튼 누르면 새로운 방으로 입장하고 렌더링됨
+
+## join group call
+
+- 만들어진 방에 참여하는 기능
+
+## calling to new user in group call
