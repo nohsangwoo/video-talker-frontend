@@ -140,3 +140,5 @@ localStream.getVideoTracks()[0].enabled = !cameraEnabled;
 - 그룹통화 방 으로 가는 버튼 생성 (기능 구현은 아직)
 
 ## store created room in server
+
+## sending active rooms to all client
