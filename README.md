@@ -158,3 +158,5 @@ localStream.getVideoTracks()[0].enabled = !cameraEnabled;
 ## displaying incoming streams
 
 다른사람이 만든방에 참여하기
+
+## leaving group call

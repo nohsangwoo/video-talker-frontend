@@ -19,6 +19,7 @@ export const CALL_SET_SCREEN_SHARING_ACTIVE = 'CALL.SET_SCREEN_SHARING_ACTIVE';
 export const CALL_RESET_CALL_STATE = 'CALL.RESET_CALL_STATE';
 export const CALL_SET_GROUP_CALL_ACTIVE = 'CALL.SET_GROUP_CALL_ACTIVE';
 export const CALL_SET_GROUP_CALL_STREAMS = 'CALL.SET_GROUP_CALL_STREAM';
+export const CALL_CLEAR_GROUP_CALL_DATA = 'CALL.CLEAR_GROUP_CALL_DATA';
 
 export const setLocalStream = localStream => {
   return {
@@ -103,5 +104,11 @@ export const setGroupCallIncomingStreams = groupCallStreams => {
   return {
     type: CALL_SET_GROUP_CALL_STREAMS,
     groupCallStreams,
+  };
+};
+
+export const clearGroupCallData = () => {
+  return {
+    type: CALL_CLEAR_GROUP_CALL_DATA,
   };
 };

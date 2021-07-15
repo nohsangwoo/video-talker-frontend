@@ -5,9 +5,11 @@ import {
   setCallState,
   setGroupCallActive,
   setGroupCallIncomingStreams,
+  clearGroupCallData,
 } from '../../store/actions/callActions';
 let myPeer;
 let myPeerId;
+let groupCallRoomId;
 
 export const connectWithMyPeer = () => {
   myPeer = new window.Peer(undefined, {
@@ -47,6 +49,7 @@ export const createNewGroupCall = () => {
 
 export const joinGroupCall = (hostSocketId, roomId) => {
   const localStream = store.getState().call.localStream;
+  groupCallRoomId = roomId;
 
   wss.userWantsToJoinGroupCall({
     peerId: myPeerId,
@@ -71,6 +74,26 @@ export const connectToNewUser = data => {
       addVideoStream(incomingStream);
     }
   });
+};
+
+export const leaveGroupCall = () => {
+  wss.userLeftGroupCall({
+    streamId: store.getState().call.localStream.id,
+    roomId: groupCallRoomId,
+  });
+
+  groupCallRoomId = null;
+  store.dispatch(clearGroupCallData());
+  myPeer.destory();
+  connectWithMyPeer();
+};
+
+export const removeInactiveStream = data => {
+  const groupCallStreams = store
+    .getState()
+    .call.groupCallstreams.filter(stream => stream.id !== data.streamId);
+
+  store.dispatch(setGroupCallIncomingStreams(groupCallStreams));
 };
 
 const addVideoStream = incomingStream => {
