@@ -1,7 +1,6 @@
 import React from 'react';
 import GroupCallRoomsListItem from './GroupCallRoomsListItem';
 import { useSelector } from 'react-redux';
-
 import './GroupCallRoomsList.css';
 
 const GroupCallRoomsList = () => {

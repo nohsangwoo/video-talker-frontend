@@ -142,3 +142,7 @@ localStream.getVideoTracks()[0].enabled = !cameraEnabled;
 ## store created room in server
 
 ## sending active rooms to all client
+
+## adding create room functionality
+
+- 그룹콜 버튼 누르면 새로운 방으로 입장하고 렌더링됨
