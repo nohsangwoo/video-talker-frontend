@@ -4,6 +4,7 @@ import {
   callStates,
   setCallState,
   setGroupCallActive,
+  setGroupCallIncomingStreams,
 } from '../../store/actions/callActions';
 let myPeer;
 let myPeerId;
@@ -24,8 +25,12 @@ export const connectWithMyPeer = () => {
   myPeer.on('call', call => {
     call.answer(store.getState().call.localStream);
     call.on('stream', incomingStream => {
-      console.log('strean came');
-      // ,incomingStream
+      const streams = store.getState().call.groupCallStreams;
+      const stream = streams.find(stream => stream.id === incomingStream.id);
+
+      if (!stream) {
+        addVideoStream(incomingStream);
+      }
     });
   });
 };
@@ -59,6 +64,19 @@ export const connectToNewUser = data => {
 
   const call = myPeer.call(data.peerId, localStream);
   call.on('stream', incomingStream => {
-    console.log('stream came');
+    const streams = store.getState().call.groupCallStreams;
+    const stream = streams.find(stream => stream.id === incomingStream.id);
+
+    if (!stream) {
+      addVideoStream(incomingStream);
+    }
   });
+};
+
+const addVideoStream = incomingStream => {
+  const groupCallStreams = [
+    ...store.getState().call.groupCallStreams,
+    incomingStream,
+  ];
+  store.dispatch(setGroupCallIncomingStreams(groupCallStreams));
 };

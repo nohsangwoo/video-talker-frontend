@@ -6,7 +6,7 @@ import GroupCallRoom from '../GroupCallRoom/GroupCallRoom';
 import { useSelector } from 'react-redux';
 const GroupCall = props => {
   const {
-    call: { callState, localStream, groupCallActive },
+    call: { callState, localStream, groupCallActive, groupCallStreams },
   } = useSelector(state => state);
 
   const createRoom = () => {
@@ -20,7 +20,7 @@ const GroupCall = props => {
         callState !== callStates.CALL_IN_PROGRESS && (
           <GroupCallButton onClickHandler={createRoom} label="Create room" />
         )}
-      {groupCallActive && <GroupCallRoom />}
+      {groupCallActive && <GroupCallRoom groupCallStreams={groupCallStreams} />}
     </>
   );
 };
