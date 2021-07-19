@@ -1,10 +1,15 @@
 import React from 'react';
 import GroupCallButton from '../GroupCallButton/GroupCallButton';
-import { callStates } from '../../../store/actions/callActions';
+import {
+  callStates,
+  setLocalCameraEnabled,
+  setLocalMicrophoneEnabled,
+} from '../../../store/actions/callActions';
 import * as webRTCGroupCallHandler from '../../../utils/webRTC/webRTCGroupCallHandler';
 import GroupCallRoom from '../GroupCallRoom/GroupCallRoom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 const GroupCall = props => {
+  const dispatch = useDispatch();
   const {
     call: { callState, localStream, groupCallActive, groupCallStreams },
   } = useSelector(state => state);
@@ -17,6 +22,10 @@ const GroupCall = props => {
     webRTCGroupCallHandler.leaveGroupCall();
   };
 
+  const setCameraEnabled = enabled => dispatch(setLocalCameraEnabled(enabled));
+  const setMicrophoneEnabled = enabled =>
+    dispatch(setLocalMicrophoneEnabled(enabled));
+
   return (
     <>
       {!groupCallActive &&
@@ -24,7 +33,13 @@ const GroupCall = props => {
         callState !== callStates.CALL_IN_PROGRESS && (
           <GroupCallButton onClickHandler={createRoom} label="Create room" />
         )}
-      {groupCallActive && <GroupCallRoom groupCallStreams={groupCallStreams} />}
+      {groupCallActive && (
+        <GroupCallRoom
+          groupCallStreams={groupCallStreams}
+          setCameraEnabled={setCameraEnabled}
+          setMicrophoneEnabled={setMicrophoneEnabled}
+        />
+      )}
       {groupCallActive && (
         <GroupCallButton onClickHandler={leaveRoom} label="Leave room" />
       )}

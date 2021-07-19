@@ -165,3 +165,7 @@ localStream.getVideoTracks()[0].enabled = !cameraEnabled;
 
 - 호스트는 자기가 만든방 리스트가 안보이게하고
 - 호스트가 방 폭파하면 연결을 끊고 해당 방이 없어졌다고 broadcast 한다.
+
+## group Calls minor change
+
+- group call 기능에서 conversation버튼들중에 마이크제어,영상제어 기능만 추가하기
