@@ -94,7 +94,8 @@ export const sendUserHangedUp = data => {
   socket.emit('user-hanged-up', data);
 };
 
-// emitting events related with group calss
+// emitting events related with group calls
+
 export const registerGroupCall = data => {
   socket.emit('group-call-register', data);
 };
@@ -117,7 +118,7 @@ const handleBroadcastEvents = data => {
       break;
     case broadcastEventTypes.GROUP_CALL_ROOMS:
       store.dispatch(dashboardActions.setGroupCalls(data.groupCallRooms));
-      return {};
+      break;
     default:
       break;
   }
