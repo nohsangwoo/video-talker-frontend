@@ -169,3 +169,7 @@ localStream.getVideoTracks()[0].enabled = !cameraEnabled;
 ## group Calls minor change
 
 - group call 기능에서 conversation버튼들중에 마이크제어,영상제어 기능만 추가하기
+
+## setting up to WebRTC data channel
+
+- 채팅 기능을 위해 연결 작업 미리 준비

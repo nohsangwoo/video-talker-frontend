@@ -36,7 +36,7 @@ const configuration = {
 
 let connectedUserSocketId;
 let peerConnection;
-
+let dataChannel;
 export const getLocalStream = () => {
   navigator.mediaDevices
     .getUserMedia(defaultConstrains)
@@ -61,6 +61,22 @@ const createPeerConnection = () => {
   for (const track of localStream.getTracks()) {
     peerConnection.addTrack(track, localStream);
   }
+
+  // incoming data channel messages
+  peerConnection.ondatachannel = event => {
+    const dataChannel = event.channel;
+
+    dataChannel.onopen = () => {
+      console.log('peer connection is ready to receive data channel messages');
+    };
+    dataChannel.onmessage = event => {};
+  };
+
+  dataChannel = peerConnection.createDataChannel('chat');
+
+  dataChannel.onopen = () => {
+    console.log('chat data channel succesfully opened');
+  };
 
   peerConnection.ontrack = ({ streams: [stream] }) => {
     store.dispatch(setRemoteStream(stream));
