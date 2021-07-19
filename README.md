@@ -173,3 +173,7 @@ localStream.getVideoTracks()[0].enabled = !cameraEnabled;
 ## setting up to WebRTC data channel
 
 - 채팅 기능을 위해 연결 작업 미리 준비
+
+## adding chat logic
+
+- 메시지 캐싱을위해 리덕스와 연동 작업 구현
