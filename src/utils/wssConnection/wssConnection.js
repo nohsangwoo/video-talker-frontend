@@ -13,6 +13,10 @@ const broadcastEventTypes = {
 
 let socket;
 
+export const groupCallclosedByHost = data => {
+  socket.emit('group-call-closed-by-host', data);
+};
+
 export const connectWithWebSocket = () => {
   socket = socketClient(SERVER);
 
@@ -117,7 +121,21 @@ const handleBroadcastEvents = data => {
       store.dispatch(dashboardActions.setActiveUsers(activeUsers));
       break;
     case broadcastEventTypes.GROUP_CALL_ROOMS:
-      store.dispatch(dashboardActions.setGroupCalls(data.groupCallRooms));
+      const groupCallRooms = data.groupCallRooms.filter(
+        room => room.socketId !== socket.id
+      );
+      const activeGroupCallRoomId =
+        webRTCGroupCallHandler.checkActiveGroupCall();
+
+      if (activeGroupCallRoomId) {
+        const room = groupCallRooms.find(
+          room => room.roomId === activeGroupCallRoomId
+        );
+        if (!room) {
+          webRTCGroupCallHandler.clearGroupData();
+        }
+      }
+      store.dispatch(dashboardActions.setGroupCalls(groupCallRooms));
       break;
     default:
       break;

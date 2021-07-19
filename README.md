@@ -160,3 +160,8 @@ localStream.getVideoTracks()[0].enabled = !cameraEnabled;
 다른사람이 만든방에 참여하기
 
 ## leaving group call
+
+## Closing group call as room creator
+
+- 호스트는 자기가 만든방 리스트가 안보이게하고
+- 호스트가 방 폭파하면 연결을 끊고 해당 방이 없어졌다고 broadcast 한다.

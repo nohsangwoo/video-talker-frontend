@@ -11,6 +11,7 @@ import {
 let myPeer;
 let myPeerId;
 let groupCallRoomId;
+let groupCallHost = false;
 
 export const connectWithMyPeer = () => {
   myPeer = new window.Peer(undefined, {
@@ -38,6 +39,7 @@ export const connectWithMyPeer = () => {
 };
 
 export const createNewGroupCall = () => {
+  groupCallHost = true;
   wss.registerGroupCall({
     username: store.getState().dashboard.username,
     peerId: myPeerId,
@@ -78,12 +80,23 @@ export const connectToNewUser = data => {
 };
 
 export const leaveGroupCall = () => {
-  wss.userLeftGroupCall({
-    streamId: store.getState().call.localStream.id,
-    roomId: groupCallRoomId,
-  });
+  if (groupCallHost) {
+    wss.groupCallclosedByHost({
+      peerId: myPeerId,
+    });
+  } else {
+    wss.userLeftGroupCall({
+      streamId: store.getState().call.localStream.id,
+      roomId: groupCallRoomId,
+    });
+  }
 
+  clearGroupData();
+};
+
+export const clearGroupData = () => {
   groupCallRoomId = null;
+  groupCallHost = null;
   store.dispatch(clearGroupCallData());
   myPeer.destroy();
   connectWithMyPeer();
@@ -103,4 +116,13 @@ const addVideoStream = incomingStream => {
   ];
 
   store.dispatch(setGroupCallIncomingStreams(groupCallStreams));
+};
+
+// if group call is active return roomId if not return false
+export const checkActiveGroupCall = () => {
+  if (store.getState().call.groupCallActive) {
+    return groupCallRoomId;
+  } else {
+    return false;
+  }
 };
