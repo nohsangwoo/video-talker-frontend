@@ -7,9 +7,11 @@ import CallingDialog from '../CallingDialog/CallingDialog';
 import {
   callStates,
   setCallRejected,
+  setMessage,
 } from '../../../store/actions/callActions';
 import { useSelector, useDispatch } from 'react-redux';
 import ConversationButtons from '../ConversationButtons/ConversationButtons';
+import Messenger from '../Messenger/Messenger';
 const DirectCall = props => {
   const dispatch = useDispatch();
 
@@ -20,10 +22,15 @@ const DirectCall = props => {
     callerUsername,
     callRejected,
     callingDialogVisible,
+    message,
   } = useSelector(state => state.call);
 
   const hideCallRejectedDialog = callRejectedDetails => {
     dispatch(setCallRejected(callRejectedDetails));
+  };
+
+  const setDirectCallMessage = (received, content) => {
+    dispatch(setMessage(received, content));
   };
 
   const conversationProps = {
@@ -53,6 +60,13 @@ const DirectCall = props => {
       {callingDialogVisible && <CallingDialog />}
       {remoteStream && callState === callStates.CALL_IN_PROGRESS && (
         <ConversationButtons />
+      )}
+
+      {remoteStream && callState === callStates.CALL_IN_PROGRESS && (
+        <Messenger
+          message={message}
+          setDirectCallMessage={setDirectCallMessage}
+        />
       )}
     </>
   );

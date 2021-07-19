@@ -177,3 +177,7 @@ localStream.getVideoTracks()[0].enabled = !cameraEnabled;
 ## adding chat logic
 
 - 메시지 캐싱을위해 리덕스와 연동 작업 구현
+
+## creating small messenger
+
+- 간단한 채팅 기능 구현
