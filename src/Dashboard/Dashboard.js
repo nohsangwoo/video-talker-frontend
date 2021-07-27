@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import logo from '../resources/logo.png';
 import ActiveUsersList from './components/ActiveUsersList/ActiveUsersList';
 import { getLocalStream } from '../utils/webRTC/webRTCHandler';
+// import { connectWithMyPeer } from '../utils/webRTC/webRTCGroupCallHandler';
 import { connectWithMyPeer } from '../utils/webRTC/webRTCGroupCallHandler';
 import DirectCall from './components/DirectCall/DirectCall';
 import { useSelector } from 'react-redux';
