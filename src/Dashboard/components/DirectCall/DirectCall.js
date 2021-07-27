@@ -33,14 +33,14 @@ const DirectCall = props => {
     dispatch(setMessage(received, content));
   };
 
-  const conversationProps = {
-    localStream,
-    remoteStream,
-    callState,
-    callerUsername,
-    callRejected,
-    callingDialogVisible,
-  };
+  // const conversationProps = {
+  //   localStream,
+  //   remoteStream,
+  //   callState,
+  //   callerUsername,
+  //   callRejected,
+  //   callingDialogVisible,
+  // };
 
   return (
     <>

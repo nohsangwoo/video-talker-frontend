@@ -4,7 +4,11 @@ import './GroupCallRoom.css';
 import GroupCallVideo from './GroupCallVideo';
 
 const GroupCallRoom = props => {
-  const { groupCallStreams, setCameraEnabled, setMicrophoneEnabled } = props;
+  const {
+    groupCallStreams,
+    // setCameraEnabled,
+    // setMicrophoneEnabled
+  } = props;
   return (
     <div className="group_call_room_container">
       <span className="group_call_title">Group Call</span>

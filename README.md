@@ -1,6 +1,16 @@
 # settingup frontend
 
+- installing react js and basic setting up
+
 # first wss connection
+
+- app.js가 구동되면 useEffect를 이용하여 connectWithWebSocket을 실행한다
+  (connectWithWebSocket: websocket을 이용하여 자동으로 백엔드 서버로 연결한다. 연결된 이후엔 백엔드에서 전달받은 트리거가 있다면 해당 트리거를 받고 특정 작업을 하는 도어맨 역할을 한다.)
+- src/utils/wssConnection/wssConnection.js
+  해당 위치에 트리거를 이용한 backend와 client의 socket.io 통신 기능이 구현된다.
+
+  - src/utils/webRTC/webRTCHandler.js
+    wssConnection.js는 일종의 도어맨 역할만 하지 실제로 webRTC관련하여 무언가 작동하는걸 구현하는 파일은 webRTCHandler.js에서 거의 구현된다.
 
 # apply react-router-dom
 

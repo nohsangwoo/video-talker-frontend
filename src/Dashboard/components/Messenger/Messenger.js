@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { sendMessageUsingDataChannel } from '../../../utils/webRTC/webRTCHandler';
 import MessageDisplayer from './MessageDisplayer';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import './Messenger.css';
 
 const Messenger = ({ message, setDirectCallMessage }) => {
@@ -26,6 +26,7 @@ const Messenger = ({ message, setDirectCallMessage }) => {
         setDirectCallMessage(false, '');
       }, [3000]);
     }
+    // eslint-disable-next-line
   }, [message.received]);
 
   return (

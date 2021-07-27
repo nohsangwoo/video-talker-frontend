@@ -4,8 +4,11 @@ import * as dashboardActions from '../../store/actions/dashboardActions';
 import * as webRTCHandler from '../webRTC/webRTCHandler';
 import * as webRTCGroupCallHandler from '../webRTC/webRTCGroupCallHandler';
 
-const SERVER = 'http://localhost:5000';
-
+const SERVER =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:5000'
+    : process.env.REACT_APP_SERVICE_BACKEND;
+console.log(SERVER);
 const broadcastEventTypes = {
   ACTIVE_USERS: 'ACTIVE_USERS',
   GROUP_CALL_ROOMS: 'GROUP_CALL_ROOMS',
@@ -17,6 +20,7 @@ export const groupCallclosedByHost = data => {
   socket.emit('group-call-closed-by-host', data);
 };
 
+// webSocket을 사용하여 해당 uri로 연결하는 기능
 export const connectWithWebSocket = () => {
   socket = socketClient(SERVER);
 
