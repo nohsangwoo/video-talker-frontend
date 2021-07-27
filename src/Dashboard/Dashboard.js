@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import logo from '../resources/logo.png';
 import ActiveUsersList from './components/ActiveUsersList/ActiveUsersList';
-import * as webRTCHandler from '../utils/webRTC/webRTCHandler';
-import * as webRTCGroupHandler from '../utils/webRTC/webRTCGroupCallHandler';
+import { getLocalStream } from '../utils/webRTC/webRTCHandler';
+import { connectWithMyPeer } from '../utils/webRTC/webRTCGroupCallHandler';
 import DirectCall from './components/DirectCall/DirectCall';
 import { useSelector } from 'react-redux';
 import DashboardInformation from './components/DashboardInformation/DashboardInformation';
@@ -19,9 +19,9 @@ const Dashboard = () => {
 
   useEffect(() => {
     // socket server연결함
-    webRTCHandler.getLocalStream();
+    getLocalStream();
     // peerjs server 연결함
-    webRTCGroupHandler.connectWithMyPeer();
+    connectWithMyPeer();
   }, []);
 
   return (
