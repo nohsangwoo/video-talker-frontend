@@ -191,3 +191,13 @@ localStream.getVideoTracks()[0].enabled = !cameraEnabled;
 ## creating small messenger
 
 - 간단한 채팅 기능 구현
+
+## babel
+
+npm i @babel/core
+@babel/cli
+@babel/plugin-transform-arrow-functions
+@babel/plugin-transform-template-literals
+@babel/preset-react
+
+# git test
